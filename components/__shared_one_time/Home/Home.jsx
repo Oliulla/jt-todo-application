@@ -34,9 +34,16 @@ const HomeMainComponent = () => {
   }, []);
 
   const handleFormSubmit = (formData) => {
-    const updatedTasks = [...tasks, formData];
+    // Here Make Proper todo task object
+    const taskConstructor = {
+      id: tasks.length + 1,
+      status: "Todo",
+      ...formData,
+    };
+    const updatedTasks = [...tasks, taskConstructor];
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTasks(updatedTasks);
+    newTaskAddButtonHandler(false)
   };
 
   // Date constructor
