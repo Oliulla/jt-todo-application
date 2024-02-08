@@ -1,6 +1,6 @@
 :root {
-  --text-white : #fff;
-  --text-cyan : #00ffff;
+  --text-white: #fff;
+  --text-cyan: #00ffff;
 }
 
 body {
@@ -53,7 +53,7 @@ a:hover {
   color: var(--text-white);
 }
 
-.btn-custom:hover .plus-icon{
+.btn-custom:hover .plus-icon {
   background-color: #ca0909;
   color: #000;
 }
@@ -69,4 +69,26 @@ input {
 
 input:focus {
   outline: none;
+}
+
+.select {
+  width: fit-content;
+  font-size: 12px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  background: #000;
+  border: none;
+  color: var(--text-cyan);
+  padding: 0.4px;
+}
+
+.select:focus {
+  outline: none;
+}
+
+.select option {
+  width: 40px;
+  font-size: 12px;
 }
