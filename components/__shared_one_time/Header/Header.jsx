@@ -1,26 +1,59 @@
 import Link from "next/link";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
-function Header() {
+function Sidebar() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-    <Navbar className="bg-dark text-light shadow-lg">
-      <Container>
-        <Navbar.Brand as={Link} href="/" className="text-light">
-          Done IT?
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="text-light">
-            Signed in as:{" "}
-            <Link href="/" className="text-light">
-              Mark Otto
-            </Link>
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+      <Button variant="transparent" onClick={handleShow}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="#fff"
+            fillRule="evenodd"
+            d="M19 4.001H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-12a2 2 0 0 0-2-2Zm-15 2a1 1 0 0 1 1-1h4v14H5a1 1 0 0 1-1-1v-12Zm6 13h9a1 1 0 0 0 1-1v-12a1 1 0 0 0-1-1h-9v14Z"
+            clipRule="evenodd"
+          ></path>
+        </svg>
+      </Button>
+
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        className="bg-dark text-light"
+      >
+        <Offcanvas.Header closeButton closeVariant="white">
+          <Offcanvas.Title>John Doe</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className="">
+            <ul className="d-grid gap-2 list-unstyled no-underline">
+              <li>
+                <Link href="/" className="d-block">Today</Link>
+              </li>
+              <li>
+                <Link href="/" className="d-block">Upcoming</Link>
+              </li>
+              <li>
+                <Link href="/" className="d-block">Filter</Link>
+              </li>
+            </ul>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 }
 
-export default Header;
+export default Sidebar;

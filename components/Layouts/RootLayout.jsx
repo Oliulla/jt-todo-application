@@ -1,12 +1,12 @@
-import Header from "../__shared_one_time/Header/Header";
+import Sidebar from "../__shared_one_time/Header/Header";
 
 const RootLayouts = ({ children }) => {
   return (
     <>
-      <header>
-        <Header />
+      <header className="container">
+        <Sidebar />
       </header>
-      <main>{children}</main>
+      <main className="container">{children}</main>
     </>
   );
 };

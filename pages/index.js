@@ -9,7 +9,7 @@ export default function MainHomePage() {
   return (
     <>
       <Head>
-        <title>Done It?</title>
+        <title>Done It? | Home</title>
         <meta name="description" content="Todo Application" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

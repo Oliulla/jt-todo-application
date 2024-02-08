@@ -3,3 +3,17 @@ body {
   background-color: #333;
   color: #fff;
 }
+
+/* My custom style */
+a {
+  color: cyan;
+  text-decoration: none;
+  transition: all ease-in 0.3s;
+  font-size: 1.25rem;
+  padding: 3px;
+}
+
+a:hover {
+  background-color: cyan;
+  color: #0e0f0f;
+}
