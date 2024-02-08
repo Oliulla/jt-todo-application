@@ -1,15 +1,21 @@
+import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
 function Header() {
   return (
-    <Navbar className="bg-body-tertiary">
+    <Navbar className="bg-dark text-light shadow-lg">
       <Container>
-        <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+        <Navbar.Brand as={Link} href="/" className="text-light">
+          Done IT?
+        </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <a href="#login">Mark Otto</a>
+          <Navbar.Text className="text-light">
+            Signed in as:{" "}
+            <Link href="/" className="text-light">
+              Mark Otto
+            </Link>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
