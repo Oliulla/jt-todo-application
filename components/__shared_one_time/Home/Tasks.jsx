@@ -1,27 +1,51 @@
-// import useFetchData from "@/hooks/useFetchData";
+import { Col, Row } from "react-bootstrap";
+import TaskCard from "@/components/__shared_many_times/__ui/TaskCard";
 
 const Tasks = ({ tasks, isLoading }) => {
-  //   const { data, loading, error } = useFetchData('/temptask.json');
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
+  const todoTasks = tasks?.filter((task) => task.status === "Todo");
+  // console.log(todoTasks);
+
+  const progressingTasks = tasks?.filter(
+    (task) => task?.status === "Progressing"
+  );
+  // console.log(progressingTasks, "progressing");
+
+  const completedTasks = tasks?.filter((task) => task?.status === "Completed");
+  // console.log(completedTasks, "completed");
+
   return (
     <div>
-      {tasks.length > 0 && (
-        <ul className="list-unstyled d-flex gap-5 flex-wrap">
-          {tasks.map((task, idx) => (
-            <li
-              key={idx}
-              className="bg-secondary shadow-lg rounded px-4 py-2"
-            >
-              <h4>{task.title}</h4>
-              <p>{task.description}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Row>
+        <Col>
+          <div>
+            <h4 className="d-inline pb-1 border-bottom border-primary">Todo</h4>
+            {tasks.length > 0 &&
+              todoTasks?.map((task, idx) => (
+                <div key={task.id}>
+                  <TaskCard task={task} />
+                </div>
+              ))}
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <h4 className="d-inline pb-1 border-bottom border-primary">
+              Progressing
+            </h4>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <h4 className="d-inline pb-1 border-bottom border-primary">
+              Complete
+            </h4>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };
