@@ -34,7 +34,6 @@ const HomeMainComponent = () => {
   }, []);
 
   const handleFormSubmit = (formData) => {
-    // Here Make Proper todo task object
     const taskConstructor = {
       id: tasks.length + 1,
       status: "Todo",
@@ -46,22 +45,30 @@ const HomeMainComponent = () => {
     newTaskAddButtonHandler(false);
   };
 
-  // Date constructor
-  const date = new Date();
-  const today = date.getDate();
-  const month = date.getMonth();
-
-  // New Task Add button handler
-  const newTaskAddButtonHandler = (canCelState) => {
-    setTaskAdding(canCelState);
-  };
-
-  // Handle task delete
   const handleDelete = (taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTasks(updatedTasks);
   };
+
+  const handleStatusChange = (taskId, newStatus) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, status: newStatus };
+      }
+      return task;
+    });
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setTasks(updatedTasks);
+  };
+
+  const newTaskAddButtonHandler = (canCelState) => {
+    setTaskAdding(canCelState);
+  };
+
+  const date = new Date();
+  const today = date.getDate();
+  const month = date.getMonth();
 
   return (
     <div className="mt-3 mb-5 pb-5">
@@ -69,14 +76,13 @@ const HomeMainComponent = () => {
       <div className="my-3">
         <span>All Tasks</span> ‧ <span>{tasks?.length}</span>
       </div>
-      {/* <div className="my-3">
-        <span>
-          {today} {monthArr[month]}{" "}
-        </span>{" "}
-        ‧ <span>Today</span> <span>0</span>
-      </div> */}
       <div className="mt-3 mb-2">
-        <Tasks tasks={tasks} isLoading={isLoading} onDelete={handleDelete} />
+        <Tasks
+          tasks={tasks}
+          isLoading={isLoading}
+          onDelete={handleDelete}
+          onStatusChange={handleStatusChange}
+        />
       </div>
       <>
         {taskAdding ? (

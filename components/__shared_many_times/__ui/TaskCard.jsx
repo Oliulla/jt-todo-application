@@ -2,7 +2,7 @@ import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CiEdit, CiFlag1 } from "react-icons/ci";
 import DeleteModal from "./DeleteModal";
 
-const TaskCard = ({ task, onDelete }) => {
+const TaskCard = ({ task, onDelete, onStatusChange }) => {
   // const [cardBg, setCardBg] = useState("dark");
   const { id, title, description, priority, status } = task ?? {};
   // console.log(priority);
@@ -43,7 +43,11 @@ const TaskCard = ({ task, onDelete }) => {
                         </Tooltip>
                       }
                     >
-                      <select className="select">
+                      <select
+                        className="select"
+                        onChange={(event) => onStatusChange(id, event)}
+                        value={status}
+                      >
                         <option className="disabled">{status}</option>
                         <option>Progressing</option>
                         <option>Completed</option>

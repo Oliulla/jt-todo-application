@@ -1,7 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import TaskCard from "@/components/__shared_many_times/__ui/TaskCard";
 
-const Tasks = ({ tasks, isLoading, onDelete }) => {
+const Tasks = ({ tasks, isLoading, onDelete, onStatusChange }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -22,6 +22,12 @@ const Tasks = ({ tasks, isLoading, onDelete }) => {
     onDelete(taskId);
   };
 
+  // status change handler
+  const handleStatusChange = (taskId, event) => {
+    const newStatus = event.target.value;
+    onStatusChange(taskId, newStatus);
+  };
+
   return (
     <div>
       <Row className="gap-5">
@@ -31,7 +37,11 @@ const Tasks = ({ tasks, isLoading, onDelete }) => {
             {tasks.length > 0 &&
               todoTasks?.map((task, idx) => (
                 <div key={task.id}>
-                  <TaskCard task={task} onDelete={handleTaskClickForDelete} />
+                  <TaskCard
+                    task={task}
+                    onDelete={handleTaskClickForDelete}
+                    onStatusChange={handleStatusChange}
+                  />
                 </div>
               ))}
           </div>
