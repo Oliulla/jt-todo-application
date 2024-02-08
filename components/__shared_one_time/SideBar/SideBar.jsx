@@ -40,6 +40,9 @@ function Sidebar() {
           <div className="">
             <ul className="d-grid gap-2 list-unstyled no-underline">
               <li>
+                <Link href="/" className="d-block">All Tasks</Link>
+              </li>
+              <li>
                 <Link href="/" className="d-block">Today</Link>
               </li>
               <li>

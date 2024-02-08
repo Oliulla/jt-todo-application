@@ -1,4 +1,4 @@
-import Sidebar from "../__shared_one_time/Header/Header";
+import Sidebar from "../__shared_one_time/SideBar/SideBar";
 
 const RootLayouts = ({ children }) => {
   return (
