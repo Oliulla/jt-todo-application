@@ -20,6 +20,10 @@ body {
   user-select: none; /* Standard syntax */
 }
 
+.text-sm {
+  font-size: 12px;
+}
+
 /* My custom style */
 a {
   color: var(--text-cyan);

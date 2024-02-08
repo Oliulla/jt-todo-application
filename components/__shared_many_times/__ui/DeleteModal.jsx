@@ -11,7 +11,7 @@ const DeleteModal = ({taskTitle}) => {
   return (
     <div>
       <span onClick={handleShow}>
-        <MdDelete className="text-danger" />
+        <MdDelete className="text-dark" />
       </span>
       <Modal show={show} onHide={handleClose} className="text-dark">
         <Modal.Header closeButton>

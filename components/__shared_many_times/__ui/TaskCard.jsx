@@ -5,29 +5,35 @@ import { MdDelete } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
 
 const TaskCard = ({ task }) => {
+  // const [cardBg, setCardBg] = useState("dark");
+  const { title, description, priority, status } = task ?? {};
+  console.log(priority);
+  let cardBg = "dark";
+
+  if (priority === "High") {
+    cardBg = "danger";
+  } else if (priority === "Medium") {
+    cardBg = "warning";
+  } else {
+    cardBg = "info";
+  }
+  console.log(cardBg);
   return (
     <>
       <ul className="list-unstyled mt-4 prevent-select">
         <Card
-          bg="dark"
-          text="white"
-          style={{ width: "18rem" }}
+          bg={cardBg}
+          text="dark"
+          key={cardBg}
+          style={{ width: "20rem" }}
           className="mb-2"
         >
           <Card.Body>
             <Card.Title>
-              <div className="d-flex justify-content-between">
-                <span className="fs-5">{task?.title}</span>
-                <span>
-                  <CiFlag1
-                    className={`${
-                      task?.priority === "High"
-                        ? "text-danger"
-                        : task?.priority === "Medium"
-                        ? "text-warning"
-                        : "text-info"
-                    }`}
-                  />
+              <div className="d-flex justify-content-between align-items-center">
+                <span className="fs-5">{title}</span>
+                <span className="text-sm">
+                  <CiFlag1 className={`text-dark`} /> {priority}
                 </span>
                 <div className="d-flex gap-3">
                   <div>
@@ -40,7 +46,7 @@ const TaskCard = ({ task }) => {
                       }
                     >
                       <select className="select">
-                        <option className="disabled">{task.status}</option>
+                        <option className="disabled">{status}</option>
                         <option>Progressing</option>
                         <option>Completed</option>
                       </select>
@@ -57,7 +63,7 @@ const TaskCard = ({ task }) => {
                     >
                       <div className="cursor-pointer">
                         <span>
-                          <CiEdit className="text-info" />
+                          <CiEdit className="text-black" />
                         </span>
                       </div>
                     </OverlayTrigger>
@@ -72,14 +78,14 @@ const TaskCard = ({ task }) => {
                       }
                     >
                       <div className="cursor-pointer">
-                        <DeleteModal taskTitle={task?.title} />
+                        <DeleteModal taskTitle={title} />
                       </div>
                     </OverlayTrigger>
                   </div>
                 </div>
               </div>
             </Card.Title>
-            <Card.Text>{task?.description}</Card.Text>
+            <Card.Text>{description}</Card.Text>
           </Card.Body>
         </Card>
       </ul>
