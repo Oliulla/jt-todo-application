@@ -19,7 +19,7 @@ const Tasks = ({ tasks, isLoading }) => {
 
   return (
     <div>
-      <Row>
+      <Row className="gap-5">
         <Col>
           <div>
             <h5 className="d-inline pb-1 border-bottom border-primary">Todo</h5>

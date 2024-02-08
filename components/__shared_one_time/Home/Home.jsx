@@ -57,7 +57,7 @@ const HomeMainComponent = () => {
   };
 
   return (
-    <div className="mt-3">
+    <div className="mt-3 mb-5">
       <h1>All Tasks</h1>
       <div className="my-3">
         <span>All Tasks</span> ‧ <span>0</span>
