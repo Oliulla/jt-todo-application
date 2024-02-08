@@ -1,12 +1,28 @@
+:root {
+  --text-white : #fff;
+  --text-cyan : #00ffff;
+}
+
 body {
   scroll-behavior: smooth;
   background-color: #333;
-  color: #fff;
+  color: var(--text-white);
+}
+
+/* My Utilites */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 /* My custom style */
 a {
-  color: cyan;
+  color: var(--text-cyan);
   text-decoration: none;
   transition: all ease-in 0.3s;
   font-size: 1.25rem;
@@ -14,13 +30,13 @@ a {
 }
 
 a:hover {
-  background-color: cyan;
+  background-color: var(--text-cyan);
   color: #0e0f0f;
 }
 
 /* Button customisation */
 .btn-custom {
-  color: #fff;
+  color: var(--text-white);
   transition: all ease-in-out 0.3s;
 }
 
@@ -34,7 +50,7 @@ a:hover {
   height: 24px;
   transition: all ease-in 0.2s;
   border-radius: 100%;
-  color: #fff;
+  color: var(--text-white);
 }
 
 .btn-custom:hover .plus-icon{
@@ -42,4 +58,15 @@ a:hover {
   color: #000;
 }
 
+/* Default Design for input fileds */
+input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  color: var(--text-white);
+  margin-bottom: 2px;
+}
 
+input:focus {
+  outline: none;
+}
