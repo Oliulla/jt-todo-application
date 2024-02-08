@@ -22,7 +22,7 @@ const Tasks = ({ tasks, isLoading }) => {
       <Row>
         <Col>
           <div>
-            <h4 className="d-inline pb-1 border-bottom border-primary">Todo</h4>
+            <h5 className="d-inline pb-1 border-bottom border-primary">Todo</h5>
             {tasks.length > 0 &&
               todoTasks?.map((task, idx) => (
                 <div key={task.id}>
@@ -33,16 +33,28 @@ const Tasks = ({ tasks, isLoading }) => {
         </Col>
         <Col>
           <div>
-            <h4 className="d-inline pb-1 border-bottom border-primary">
+            <h5 className="d-inline pb-1 border-bottom border-primary">
               Progressing
-            </h4>
+            </h5>
+            {tasks.length > 0 &&
+              progressingTasks?.map((task, idx) => (
+                <div key={task.id}>
+                  <TaskCard task={task} />
+                </div>
+              ))}
           </div>
         </Col>
         <Col>
           <div>
-            <h4 className="d-inline pb-1 border-bottom border-primary">
-              Complete
-            </h4>
+            <h5 className="d-inline pb-1 border-bottom border-primary">
+              Completed
+            </h5>
+            {tasks.length > 0 &&
+              completedTasks?.map((task, idx) => (
+                <div key={task.id}>
+                  <TaskCard task={task} />
+                </div>
+              ))}
           </div>
         </Col>
       </Row>

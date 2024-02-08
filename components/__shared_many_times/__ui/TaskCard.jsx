@@ -5,7 +5,7 @@ import { CiEdit, CiFlag1 } from "react-icons/ci";
 const TaskCard = ({ task }) => {
   return (
     <>
-      <ul className="list-unstyled mt-4">
+      <ul className="list-unstyled mt-4 prevent-select">
         <Card
           bg="dark"
           text="white"
