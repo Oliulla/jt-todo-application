@@ -43,7 +43,7 @@ const HomeMainComponent = () => {
     const updatedTasks = [...tasks, taskConstructor];
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTasks(updatedTasks);
-    newTaskAddButtonHandler(false)
+    newTaskAddButtonHandler(false);
   };
 
   // Date constructor
@@ -56,20 +56,27 @@ const HomeMainComponent = () => {
     setTaskAdding(canCelState);
   };
 
+  // Handle task delete
+  const handleDelete = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setTasks(updatedTasks);
+  };
+
   return (
-    <div className="mt-3 mb-5">
+    <div className="mt-3 mb-5 pb-5">
       <h1>All Tasks</h1>
       <div className="my-3">
-        <span>All Tasks</span> ‧ <span>0</span>
+        <span>All Tasks</span> ‧ <span>{tasks?.length}</span>
       </div>
-      <div className="my-3">
+      {/* <div className="my-3">
         <span>
           {today} {monthArr[month]}{" "}
         </span>{" "}
         ‧ <span>Today</span> <span>0</span>
-      </div>
+      </div> */}
       <div className="mt-3 mb-2">
-        <Tasks tasks={tasks} isLoading={isLoading} />
+        <Tasks tasks={tasks} isLoading={isLoading} onDelete={handleDelete} />
       </div>
       <>
         {taskAdding ? (

@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CiEdit, CiFlag1 } from "react-icons/ci";
-import { MdDelete } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, onDelete }) => {
   // const [cardBg, setCardBg] = useState("dark");
-  const { title, description, priority, status } = task ?? {};
-  console.log(priority);
+  const { id, title, description, priority, status } = task ?? {};
+  // console.log(priority);
   let cardBg = "dark";
 
   if (priority === "High") {
@@ -17,14 +15,14 @@ const TaskCard = ({ task }) => {
   } else {
     cardBg = "info";
   }
-  console.log(cardBg);
+  // console.log(cardBg);
+
   return (
     <>
       <ul className="list-unstyled mt-4 prevent-select">
         <Card
           bg={cardBg}
           text="dark"
-          key={cardBg}
           style={{ width: "20rem" }}
           className="mb-2"
         >
@@ -78,7 +76,11 @@ const TaskCard = ({ task }) => {
                       }
                     >
                       <div className="cursor-pointer">
-                        <DeleteModal taskTitle={title} />
+                        <DeleteModal
+                          taskId={id}
+                          taskTitle={title}
+                          onDelete={onDelete}
+                        />
                       </div>
                     </OverlayTrigger>
                   </div>

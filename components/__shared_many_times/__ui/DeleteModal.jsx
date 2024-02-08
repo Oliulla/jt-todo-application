@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 
-const DeleteModal = ({taskTitle}) => {
+const DeleteModal = ({taskId, taskTitle, onDelete }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleDelete = () => {
+    onDelete(taskId);
+    handleClose();
+  };
 
   return (
     <div>
@@ -22,7 +27,9 @@ const DeleteModal = ({taskTitle}) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger">Delete</Button>
+          <Button onClick={handleDelete} variant="danger">
+            Delete
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
