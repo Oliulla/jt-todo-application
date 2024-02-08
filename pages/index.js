@@ -1,10 +1,11 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import { Button } from "react-bootstrap";
+import HomeMainComponent from "@/components/__shared_one_time/Home/Home";
+import RootLayout from "@/components/Layouts/RootLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function MainHomePage() {
   return (
     <>
       <Head>
@@ -13,19 +14,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={inter.className}>
-        <>
-          <Button variant="primary">Primary</Button>{' '}
-          <Button variant="secondary">Secondary</Button>{' '}
-          <Button variant="success">Success</Button>{' '}
-          <Button variant="warning">Warning</Button>{' '}
-          <Button variant="danger">Danger</Button>{' '}
-          <Button variant="info">Info</Button>{' '}
-          <Button variant="light">Light</Button>{' '}
-          <Button variant="dark">Dark</Button>
-          <Button variant="link">Link</Button>
-        </>
-      </main>
+      <div className={inter.className}>
+        <HomeMainComponent />
+      </div>
     </>
   );
+}
+
+
+MainHomePage.getLayout = function getLayout(page) {
+  return <RootLayout>
+    {page}
+  </RootLayout>
 }
