@@ -21,6 +21,8 @@ const monthArr = [
 
 const HomeMainComponent = () => {
   const [taskAdding, setTaskAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [targetEditId, setTargetEditId] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,13 +64,30 @@ const HomeMainComponent = () => {
     setTasks(updatedTasks);
   };
 
+  const handleUpdate = (updatedTask) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === updatedTask.id) {
+        return { ...task, ...updatedTask };
+      }
+      return task;
+    });
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setTasks(updatedTasks);
+    setIsEditing(false);
+  };
+
   const newTaskAddButtonHandler = (canCelState) => {
     setTaskAdding(canCelState);
   };
 
-  const date = new Date();
-  const today = date.getDate();
-  const month = date.getMonth();
+  const handleEditClick = (taskId) => {
+    setIsEditing(true);
+    setTargetEditId(taskId)
+  };
+
+  // const date = new Date();
+  // const today = date.getDate();
+  // const month = date.getMonth();
 
   return (
     <div className="mt-3 mb-5 pb-5">
@@ -82,6 +101,11 @@ const HomeMainComponent = () => {
           isLoading={isLoading}
           onDelete={handleDelete}
           onStatusChange={handleStatusChange}
+          onUpdate={handleUpdate}
+          handleEditClick={handleEditClick}
+          setIsEditing={setIsEditing}
+          isEditing={isEditing}
+          targetEditId={targetEditId}
         />
       </div>
       <>
@@ -91,15 +115,19 @@ const HomeMainComponent = () => {
             newTaskAddButtonHandler={newTaskAddButtonHandler}
           />
         ) : (
-          <div className="">
-            <button
-              onClick={() => newTaskAddButtonHandler(true)}
-              className="bg-transparent btn-custom d-flex justify-items-center gap-3 py-2 px-3"
-            >
-              <CiCirclePlus className="plus-icon" />
-              <span>Add New Task</span>
-            </button>
-          </div>
+          <>
+            {!isEditing && (
+              <div className="">
+                <button
+                  onClick={() => newTaskAddButtonHandler(true)}
+                  className="bg-transparent btn-custom d-flex justify-items-center gap-3 py-2 px-3"
+                >
+                  <CiCirclePlus className="plus-icon" />
+                  <span>Add New Task</span>
+                </button>
+              </div>
+            )}
+          </>
         )}
       </>
     </div>

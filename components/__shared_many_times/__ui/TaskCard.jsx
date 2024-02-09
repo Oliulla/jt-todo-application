@@ -1,11 +1,20 @@
+import React, { useState } from "react";
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CiEdit, CiFlag1 } from "react-icons/ci";
 import DeleteModal from "./DeleteModal";
+import TaskForm from "@/components/__shared_one_time/Home/TaskForm";
 
-const TaskCard = ({ task, onDelete, onStatusChange }) => {
-  // const [cardBg, setCardBg] = useState("dark");
+const TaskCard = ({
+  task,
+  onDelete,
+  onStatusChange,
+  onUpdate,
+  handleEditClick,
+  isEditing,
+  setIsEditing,
+  targetEditId,
+}) => {
   const { id, title, description, priority, status } = task ?? {};
-  // console.log(priority);
   let cardBg = "dark";
 
   if (priority === "High") {
@@ -15,22 +24,32 @@ const TaskCard = ({ task, onDelete, onStatusChange }) => {
   } else {
     cardBg = "info";
   }
-  // console.log(cardBg);
 
   return (
     <>
-      <ul className="list-unstyled mt-4 prevent-select">
-        <Card
-          bg={cardBg}
-          text="dark"
-          style={{ width: "20rem" }}
-          className="mb-2"
-        >
-          <Card.Body>
-            <Card.Title>
-              <div className="d-flex justify-content-between align-items-center">
-                <span className="fs-5">{title}</span>
-                <span className="text-sm">
+      {isEditing && targetEditId === id ? (
+        <TaskForm
+          task={task}
+          onSubmit={onUpdate}
+          newTaskAddButtonHandler={setIsEditing}
+          isEditing={isEditing}
+          onUpdate={onUpdate}
+        />
+      ) : (
+        <ul className="list-unstyled mt-4 prevent-select">
+          <Card
+            bg={cardBg}
+            text="dark"
+            style={{ width: "20rem" }}
+            className="mb-2"
+          >
+            <Card.Body>
+              <Card.Title>
+                {title}
+              </Card.Title>
+              <Card.Text>{description}</Card.Text>
+              <div className="d-flex justify-content-between align-items-center gap-3">
+                <span className="text-sm me-1">
                   <CiFlag1 className={`text-dark`} /> {priority}
                 </span>
                 <div className="d-flex gap-3">
@@ -59,14 +78,15 @@ const TaskCard = ({ task, onDelete, onStatusChange }) => {
                       placement="top"
                       overlay={
                         <Tooltip>
-                          <strong>Update task</strong>.
+                          <strong>Edit task</strong>.
                         </Tooltip>
                       }
                     >
-                      <div className="cursor-pointer">
-                        <span>
-                          <CiEdit className="text-black" />
-                        </span>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => handleEditClick(id)}
+                      >
+                        <CiEdit className="text-black" />
                       </div>
                     </OverlayTrigger>
                   </div>
@@ -90,11 +110,10 @@ const TaskCard = ({ task, onDelete, onStatusChange }) => {
                   </div>
                 </div>
               </div>
-            </Card.Title>
-            <Card.Text>{description}</Card.Text>
-          </Card.Body>
-        </Card>
-      </ul>
+            </Card.Body>
+          </Card>
+        </ul>
+      )}
     </>
   );
 };

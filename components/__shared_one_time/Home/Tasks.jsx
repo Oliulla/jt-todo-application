@@ -1,7 +1,19 @@
 import { Col, Row } from "react-bootstrap";
 import TaskCard from "@/components/__shared_many_times/__ui/TaskCard";
+import { useState } from "react";
 
-const Tasks = ({ tasks, isLoading, onDelete, onStatusChange }) => {
+const Tasks = ({
+  tasks,
+  isLoading,
+  onDelete,
+  onStatusChange,
+  onUpdate,
+  handleEditClick,
+  isEditing,
+  setIsEditing,
+  targetEditId,
+}) => {
+  const [updateTargetTaskId, setUpdateTaskId] = useState(0);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -28,19 +40,29 @@ const Tasks = ({ tasks, isLoading, onDelete, onStatusChange }) => {
     onStatusChange(taskId, newStatus);
   };
 
+  // Update task constructor
+  const updateTaskHandler = (updatedTask) => {
+    onUpdate(updatedTask);
+  };
+
   return (
-    <div>
+    <div className="mt-3">
       <Row className="gap-5">
         <Col>
           <div>
             <h5 className="d-inline pb-1 border-bottom border-primary">Todo</h5>
             {tasks.length > 0 &&
               todoTasks?.map((task, idx) => (
-                <div key={task.id}>
+                <div onClick={() => setUpdateTaskId(task.id)} key={task.id}>
                   <TaskCard
                     task={task}
                     onDelete={handleTaskClickForDelete}
                     onStatusChange={handleStatusChange}
+                    onUpdate={updateTaskHandler}
+                    handleEditClick={handleEditClick}
+                    setIsEditing={setIsEditing}
+                    isEditing={isEditing}
+                    targetEditId={targetEditId}
                   />
                 </div>
               ))}
@@ -54,7 +76,16 @@ const Tasks = ({ tasks, isLoading, onDelete, onStatusChange }) => {
             {tasks.length > 0 &&
               progressingTasks?.map((task, idx) => (
                 <div key={task.id}>
-                  <TaskCard task={task} />
+                  <TaskCard
+                    task={task}
+                    onDelete={handleTaskClickForDelete}
+                    onStatusChange={handleStatusChange}
+                    onUpdate={updateTaskHandler}
+                    handleEditClick={handleEditClick}
+                    setIsEditing={setIsEditing}
+                    isEditing={isEditing}
+                    targetEditId={targetEditId}
+                  />
                 </div>
               ))}
           </div>
@@ -67,7 +98,16 @@ const Tasks = ({ tasks, isLoading, onDelete, onStatusChange }) => {
             {tasks.length > 0 &&
               completedTasks?.map((task, idx) => (
                 <div key={task.id}>
-                  <TaskCard task={task} />
+                  <TaskCard
+                    task={task}
+                    onDelete={handleTaskClickForDelete}
+                    onStatusChange={handleStatusChange}
+                    onUpdate={updateTaskHandler}
+                    handleEditClick={handleEditClick}
+                    setIsEditing={setIsEditing}
+                    isEditing={isEditing}
+                    targetEditId={targetEditId}
+                  />
                 </div>
               ))}
           </div>

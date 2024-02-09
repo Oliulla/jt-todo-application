@@ -1,17 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { RxCross2 } from "react-icons/rx";
 
-const TaskForm = ({ onSubmit, newTaskAddButtonHandler }) => {
+const TaskForm = ({ onSubmit, newTaskAddButtonHandler, task, onUpdate }) => {
+  const [formData, setFormData] = useState({
+    title: task?.title || "",
+    description: task?.description || "",
+    priority: task?.priority || "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const formDataObject = Object.fromEntries(formData.entries());
-    onSubmit(formDataObject);
+    if (task) {
+      onUpdate({
+        id: task?.id,
+        status: task?.status,
+        ...formData,
+      });
+    } else {
+      onSubmit(formData);
+    }
   };
 
   return (
-    <div className="border rounded w-25 p-2 fs-6 prevent-select">
+    <div
+      className={`border rounded p-2 fs-6 prevent-select ${
+        task ? "w-100 mt-4" : "w-25"
+      }`}
+    >
       <div className="text-end">
         <button
           onClick={() => newTaskAddButtonHandler(false)}
@@ -27,6 +51,8 @@ const TaskForm = ({ onSubmit, newTaskAddButtonHandler }) => {
           name="title"
           autoComplete="off"
           required
+          value={formData.title}
+          onChange={handleChange}
         />
         <input
           type="text"
@@ -34,9 +60,17 @@ const TaskForm = ({ onSubmit, newTaskAddButtonHandler }) => {
           name="description"
           autoComplete="off"
           required
+          value={formData.description}
+          onChange={handleChange}
         />
         <div className="mt-2">
-          <select className={`bg-dark text-light`} name="priority" required>
+          <select
+            className={`bg-dark text-light`}
+            name="priority"
+            required
+            value={formData.priority}
+            onChange={handleChange}
+          >
             <option className="disabled text-white" value="">
               Set Priority
             </option>
@@ -53,7 +87,7 @@ const TaskForm = ({ onSubmit, newTaskAddButtonHandler }) => {
         </div>
         <div className="d-flex justify-content-end mt-3">
           <Button type="submit" variant="success">
-            Add
+            {task ? "Update" : "Add"}
           </Button>
         </div>
       </form>
