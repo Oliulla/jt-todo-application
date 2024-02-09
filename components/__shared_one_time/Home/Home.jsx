@@ -25,15 +25,23 @@ const HomeMainComponent = () => {
   const [targetEditId, setTargetEditId] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [render, setRender] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
+      const parsedTasks = JSON.parse(storedTasks);
+      // Sort tasks based on priority: High > Medium > Low
+      const sortedTasks = parsedTasks.sort((a, b) => {
+        const priorityOrder = { High: 3, Medium: 2, Low: 1 };
+        return priorityOrder[b.priority] - priorityOrder[a.priority];
+      });
+      setTasks(sortedTasks);
     }
+    setRender(false);
     setIsLoading(false);
-  }, []);
+  }, [render]);
 
   const handleFormSubmit = (formData) => {
     const taskConstructor = {
@@ -45,6 +53,7 @@ const HomeMainComponent = () => {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTasks(updatedTasks);
     newTaskAddButtonHandler(false);
+    setRender(true);
   };
 
   const handleDelete = (taskId) => {
@@ -74,6 +83,7 @@ const HomeMainComponent = () => {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTasks(updatedTasks);
     setIsEditing(false);
+    setRender(true);
   };
 
   const newTaskAddButtonHandler = (canCelState) => {
@@ -82,7 +92,7 @@ const HomeMainComponent = () => {
 
   const handleEditClick = (taskId) => {
     setIsEditing(true);
-    setTargetEditId(taskId)
+    setTargetEditId(taskId);
   };
 
   // const date = new Date();
@@ -91,10 +101,6 @@ const HomeMainComponent = () => {
 
   return (
     <div className="mt-3 mb-5 pb-5">
-      <h1>All Tasks</h1>
-      <div className="my-3">
-        <span>All Tasks</span> ‧ <span>{tasks?.length}</span>
-      </div>
       <div className="mt-3 mb-2">
         <Tasks
           tasks={tasks}

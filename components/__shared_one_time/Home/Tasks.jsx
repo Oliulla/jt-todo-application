@@ -13,7 +13,6 @@ const Tasks = ({
   setIsEditing,
   targetEditId,
 }) => {
-  const [updateTargetTaskId, setUpdateTaskId] = useState(0);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -47,13 +46,33 @@ const Tasks = ({
 
   return (
     <div className="mt-3">
+      <div className="d-flex gap-5 mb-3">
+        <div>
+          <h5>All Tasks</h5>
+          <div className="my-3">
+            <span>All Tasks</span> ‧ <span>{tasks?.length}</span>
+          </div>
+        </div>
+        <div>
+          <h5>Progressing Tasks</h5>
+          <div className="my-3">
+            <span>Progressing</span> ‧ <span>{progressingTasks?.length}</span>
+          </div>
+        </div>
+        <div>
+          <h5>Completed Tasks</h5>
+          <div className="my-3">
+            <span>Completed Tasks</span> ‧ <span>{completedTasks?.length}</span>
+          </div>
+        </div>
+      </div>
       <Row className="gap-5">
         <Col>
           <div>
             <h5 className="d-inline pb-1 border-bottom border-primary">Todo</h5>
             {tasks.length > 0 &&
               todoTasks?.map((task, idx) => (
-                <div onClick={() => setUpdateTaskId(task.id)} key={task.id}>
+                <div key={task.id}>
                   <TaskCard
                     task={task}
                     onDelete={handleTaskClickForDelete}
