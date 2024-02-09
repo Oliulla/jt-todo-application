@@ -6,7 +6,7 @@
 body {
   scroll-behavior: smooth;
   background-color: #333333 !important;
-  color: var(--text-white);
+  color: var(--text-white) !important;
 }
 
 /* My Utilites */
