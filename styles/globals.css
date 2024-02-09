@@ -5,7 +5,7 @@
 
 body {
   scroll-behavior: smooth;
-  background-color: #333;
+  background-color: #333333 !important;
   color: var(--text-white);
 }
 
